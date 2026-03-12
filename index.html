@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aadhavan · Automation Tester</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter (clean sans) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      padding-top: 56px;
+      background-color: #ffffff; 
+      color: #242f40; /* dark navy for primary text */
+      scroll-behavior: smooth;
+    }
+    .section {
+      padding: 80px 0;
+    }
+    .bg-soft {
+      background-color: #e5e5e5 !important; /* light grey */
+    }
+    /* new palette: #363636 (jet), #242f40 (dark navy), #cca43b (golden), #e5e5e5 (light grey), #ffffff */
+    .hero {
+      background: linear-gradient(145deg, #363636 0%, #242f40 100%); /* jet to dark navy */
+      color: white;
+      padding: 100px 0;
+    }
+    .hero img {
+      border: 4px solid #cca43b; /* golden border */
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+    }
+    .skill-tag {
+      background-color: #ffffff;
+      color: #242f40;
+      border-radius: 40px;
+      padding: 8px 22px;
+      margin: 6px 8px 6px 0;
+      display: inline-block;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      border: 1px solid #cca43b;
+    }
+    .skill-tag i {
+      margin-right: 8px;
+      color: #363636; /* jet */
+    }
+    .skill-tag:hover {
+      background-color: #cca43b; /* golden */
+      color: #242f40;
+      border-color: #cca43b;
+      transform: translateY(-2px);
+    }
+    .skill-tag:hover i {
+      color: #242f40;
+    }
+    .project-card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px -5px rgba(36,47,64,0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      background: white;
+      overflow: hidden;
+      border-bottom: 3px solid #cca43b;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 30px -8px rgba(54,54,54,0.2);
+      border-bottom-color: #363636;
+    }
+    .project-card .card-body {
+      padding: 1.8rem 1.5rem;
+      flex: 1;
+    }
+    .badge {
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 30px;
+      margin-right: 6px;
+      background-color: #e5e5e5;
+      color: #242f40;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+    .contact-icon {
+      font-size: 1.5rem;
+      width: 2.5rem;
+      color: #cca43b; /* golden */
+    }
+    .social-links a {
+      color: #242f40;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .social-links a:hover {
+      color: #cca43b;
+      transform: scale(1.1);
+    }
+    .navbar-nav .nav-link.active {
+      color: #cca43b !important; /* golden active */
+      font-weight: 600;
+    }
+    .footer {
+      background-color: #242f40; /* dark navy */
+      color: #e5e5e5;
+      padding: 24px 0;
+    }
+    .form-control {
+      border-radius: 16px;
+      border: 1px solid #cca43b;
+      padding: 12px 18px;
+    }
+    .form-control:focus {
+      border-color: #363636;
+      box-shadow: 0 0 0 3px rgba(204,164,59,0.25);
+    }
+    .btn-primary {
+      background-color: #363636; /* jet */
+      border: none;
+      border-radius: 40px;
+      padding: 12px 20px;
+      font-weight: 600;
+      transition: 0.2s;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #242f40;
+      transform: scale(1.02);
+    }
+    .btn-outline-light {
+      border-radius: 40px;
+      padding: 12px 28px;
+      border-color: #cca43b;
+      color: #cca43b;
+    }
+    .btn-outline-light:hover {
+      background-color: #cca43b;
+      color: #242f40;
+      border-color: #cca43b;
+    }
+    .remote-badge {
+      background-color: #363636; /* jet */
+      border-radius: 40px;
+      padding: 5px 20px;
+      font-size: 1rem;
+      display: inline-block;
+      color: white;
+      font-weight: 600;
+      border: 1px solid #cca43b;
+    }
+    .cert-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      border-left: 4px solid #cca43b;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+      transition: transform 0.2s;
+      height: 100%;
+    }
+    .cert-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px rgba(54,54,54,0.1);
+    }
+    .navbar-brand {
+      font-weight: 700;
+      color: #e5e5e5 !important;
+    }
+    .navbar-brand i {
+      color: #cca43b;
+    }
+    /* additional new-colour touches */
+    h2 i {
+      color: #cca43b !important;
+    }
+    .btn-light-custom {
+      background-color: #cca43b; 
+      color: #242f40; 
+      border: none;
+    }
+    .btn-light-custom:hover {
+      background-color: #363636;
+      color: white;
+    }
+    .cert-detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .cert-detail-tags span {
+      background: #e5e5e5;
+      color: #242f40;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .github-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #242f40;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .github-link i {
+      color: #363636;
+      transition: color 0.2s;
+    }
+    .github-link:hover {
+      color: #cca43b;
+    }
+    .github-link:hover i {
+      color: #cca43b;
+    }
+    .project-description {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: #242f40;
+    }
+    .conference-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      border-bottom: 3px solid #cca43b;
+      height: 100%;
+      transition: transform 0.2s;
+    }
+    .conference-card:hover {
+      transform: translateY(-5px);
+      border-bottom-color: #363636;
+    }
+    .separator-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #242f40;
+      margin: 2rem 0 1.5rem;
+      border-bottom: 2px solid #cca43b;
+      padding-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- fixed navbar (brand, no .dev) -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" style="background-color: #242f40;">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="fas fa-search me-2" style="color: #cca43b;"></i>Aadhavan
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+              aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#conferences">Conferences</a></li>
+          <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO - new palette: jet/dark navy, golden details -->
+  <section id="home" class="hero">
+    <div class="container text-center">
+      <!-- avatar with initials A.R using new colours -->
+      <img src="https://ui-avatars.com/api/?background=242f40&color=cca43b&size=150&name=Aadhavan+R&length=2&font-size=0.5&bold=true" 
+           alt="Aadhavan R profile" class="rounded-circle mb-4" width="150" height="150">
+      <h1 class="display-4 fw-bold">Aadhavan .R</h1>
+      <p class="lead fs-3">Automation Tester</p>
+      <div class="mt-3">
+        <span class="remote-badge"><i class="fas fa-briefcase me-2"></i>Open to work</span>
+      </div>
+      <p class="mt-4 fs-5 opacity-90">Finding defects before they find your users.</p>
+      <div class="mt-5">
+        <a href="#contact" class="btn btn-lg px-5 py-3 me-2 rounded-pill" style="background-color: #cca43b; color: #242f40; border: none;"><i class="fas fa-paper-plane me-2"></i>Hire me</a>
+        <a href="#" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill"><i class="fas fa-download me-2"></i>Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT (new text) with light grey background -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="display-6 fw-bold mb-4" style="color: #242f40;"><i class="fas fa-search me-3" style="color: #cca43b;"></i>About Me</h2>
+          <p class="lead fs-5" style="color: #242f40;">I am Aadhavan. I recently completed my MCA with an 8.01 CGPA. I have strong understanding of software testing concepts, SDLC, and manual testing techniques. I’ve worked with web technologies like HTML, CSS, and JavaScript, which helps me understand how web applications behave and where defects can occur. During my projects I focused on test case creation, functional testing, and bug reporting to ensure application quality. I’m looking for an opportunity as a Software Tester where I can apply my analytical thinking to improve software reliability.</p>
+          <div class="row mt-5 g-4">
+            <div class="col-sm-4">
+              <div class="border-0 p-3 rounded-4" style="background-color: #e5e5e5;">
+                <i class="fas fa-clipboard-list fa-2x mb-2" style="color: #363636;"></i>
+                <h6 style="color: #242f40;">Test case creation</h6>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="border-0 p-3 rounded-4" style="background-color: #e5e5e5;">
+                <i class="fas fa-bug fa-2x mb-2" style="color: #363636;"></i>
+                <h6 style="color: #242f40;">Functional testing</h6>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="border-0 p-3 rounded-4" style="background-color: #e5e5e5;">
+                <i class="fas fa-chart-line fa-2x mb-2" style="color: #363636;"></i>
+                <h6 style="color: #242f40;">Bug reporting</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS (light grey) -->
+  <section id="skills" class="section bg-soft">
+    <div class="container">
+      <h2 class="text-center display-6 fw-bold mb-5" style="color: #242f40;"><i class="fas fa-search me-3" style="color: #cca43b;"></i>Technical Skills</h2>
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100" style="border-top: 4px solid #cca43b;">
+            <i class="fas fa-vial fa-3x mb-3" style="color: #363636;"></i>
+            <h5 style="color: #242f40;">Testing & Automation</h5>
+            <p style="color: #242f40;">Selenium, TestNG, JUnit5, Cypress, Apache Maven</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100" style="border-top: 4px solid #cca43b;">
+            <i class="fas fa-code fa-3x mb-3" style="color: #363636;"></i>
+            <h5 style="color: #242f40;">Web & Languages</h5>
+            <p style="color: #242f40;">HTML, CSS, JavaScript, Core Java, SQL</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-4 bg-white rounded-4 shadow-sm h-100" style="border-top: 4px solid #cca43b;">
+            <i class="fas fa-tools fa-3x mb-3" style="color: #363636;"></i>
+            <h5 style="color: #242f40;">DevOps & Tools</h5>
+            <p style="color: #242f40;">Git, Jenkins, MongoDB, Firebase, RESTful API</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- interactive tags -->
+      <div class="row mt-5">
+        <div class="col-lg-10 mx-auto">
+          <h5 class="text-center mb-4 fw-semibold" style="color: #242f40;">⚡ complete toolkit</h5>
+          <div class="d-flex flex-wrap justify-content-center">
+            <span class="skill-tag"><i class="fas fa-vial"></i> Selenium</span>
+            <span class="skill-tag"><i class="fas fa-flask"></i> TestNG</span>
+            <span class="skill-tag"><i class="fas fa-check-double"></i> JUnit5</span>
+            <span class="skill-tag"><i class="fas fa-code-branch"></i> Maven</span>
+            <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+            <span class="skill-tag"><i class="fab fa-java"></i> Core Java</span>
+            <span class="skill-tag"><i class="fab fa-html5"></i> HTML</span>
+            <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS</span>
+            <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+            <span class="skill-tag"><i class="fas fa-leaf"></i> MongoDB</span>
+            <span class="skill-tag"><i class="fas fa-plug"></i> RESTful API</span>
+            <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+            <span class="skill-tag"><i class="fas fa-cloud"></i> Jenkins</span>
+            <span class="skill-tag"><i class="fas fa-fire"></i> Firebase</span>
+            <span class="skill-tag"><i class="fas fa-vial"></i> Cypress</span>
+            <!-- added TDD/BDD etc -->
+            <span class="skill-tag"><i class="fas fa-check-circle"></i> TDD</span>
+            <span class="skill-tag"><i class="fas fa-users"></i> BDD</span>
+            <span class="skill-tag"><i class="fas fa-robot"></i> ATDD</span>
+            <span class="skill-tag"><i class="fas fa-threads"></i> ThreadLocal</span>
+            <span class="skill-tag"><i class="fas fa-bolt"></i> Parallel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE (only Trainee) -->
+  <section id="experience" class="section">
+    <div class="container">
+      <h2 class="text-center display-6 fw-bold mb-5" style="color: #242f40;"><i class="fas fa-briefcase me-3" style="color: #cca43b;"></i>Experience</h2>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-8">
+          <div class="card project-card h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <i class="fas fa-graduation-cap fa-2x me-3" style="color: #363636;"></i>
+                <div>
+                  <h5 class="card-title fw-bold" style="color: #242f40;">Trainee</h5>
+                  <p style="color: #363636;">Greens technology · Aug '22 – Nov '22 · Chennai</p>
+                </div>
+              </div>
+              <p class="card-text" style="color: #242f40;">Tested front‑end applications with automation and web scripting. Worked with TestNG, JUnit, NUnit, and Maven dependencies to ensure robust test coverage.</p>
+              <span class="badge">Selenium</span>
+              <span class="badge">TestNG</span>
+              <span class="badge">Maven</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION - Only 3 projects as requested -->
+  <section id="projects" class="section bg-soft">
+    <div class="container">
+      <h2 class="text-center display-6 fw-bold mb-5" style="color: #242f40;"><i class="fas fa-folder-open me-3" style="color: #cca43b;"></i>Projects</h2>
+      <div class="row g-4">
+        <!-- Project 1: Krishna Builders -->
+        <div class="col-md-4">
+          <div class="card project-card">
+            <div class="card-body">
+              <h5 class="card-title fw-bold" style="color: #242f40;"><i class="fas fa-hard-hat me-2" style="color:#363636;"></i>Krishna Builders</h5>
+              <p class="text-secondary-emphasis small">Web Application Automation Tested</p>
+              <p class="project-description">Designed and executed automated test suites for a construction firm's web portal. Validated forms, user authentication, and dynamic content using Selenium WebDriver.</p>
+              <div class="mt-3">
+                <span class="badge">Selenium</span>
+                <span class="badge">TestNG</span>
+                <span class="badge">Java</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 2: E-Commerce Cycles Automation -->
+        <div class="col-md-4">
+          <div class="card project-card">
+            <div class="card-body">
+              <h5 class="card-title fw-bold" style="color: #242f40;"><i class="fas fa-bicycle me-2" style="color:#363636;"></i>E-Commerce Cycles</h5>
+              <p class="text-secondary-emphasis small">Automation testing for cycle store</p>
+              <p class="project-description">Comprehensive test automation suite for an e-commerce platform specializing in cycles. Implemented end-to-end testing for product search, cart management, checkout flow, and order validation.</p>
+              <div class="mt-3">
+                <span class="badge">Selenium</span>
+                <span class="badge">TestNG</span>
+                <span class="badge">Maven</span>
+                <span class="badge">Page Object Model</span>
+              </div>
+              <div class="mt-3">
+                <a href="https://github.com/aadhavanmassdp/e-commerece-automation" target="_blank" class="github-link">
+                  <i class="fab fa-github me-1"></i> View on GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 3: Parallel Execution with Thread-Safe WebDriver -->
+        <div class="col-md-4">
+          <div class="card project-card">
+            <div class="card-body">
+              <h5 class="card-title fw-bold" style="color: #242f40;"><i class="fas fa-bolt me-2" style="color:#363636;"></i>Parallel Execution: Thread-Safe WebDriver</h5>
+              <p class="text-secondary-emphasis small">Multi-threaded Selenium test execution</p>
+              <p class="project-description"><strong>What it does:</strong> Enables running Selenium tests in parallel (multiple threads, browsers) without collisions. Uses ThreadLocal for thread-safe WebDriver instances and TestNG's parallel execution capabilities to dramatically reduce test execution time.</p>
+              <div class="mt-3">
+                <span class="badge">Selenium</span>
+                <span class="badge">TestNG</span>
+                <span class="badge">Maven</span>
+                <span class="badge">ThreadLocal</span>
+                <span class="badge">Parallel</span>
+              </div>
+              <div class="mt-3">
+                <a href="https://github.com/aadhavanmassdp/e-commerece-automation" target="_blank" class="github-link">
+                  <i class="fab fa-github me-1"></i> View on GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFERENCES SECTION - Separated as requested -->
+  <section id="conferences" class="section">
+    <div class="container">
+      <h2 class="text-center display-6 fw-bold mb-5" style="color: #242f40;"><i class="fas fa-calendar-alt me-3" style="color: #cca43b;"></i>Conferences</h2>
+      <div class="row g-4">
+        <!-- Test Flix Conference -->
+        <div class="col-md-6">
+          <div class="conference-card">
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-video fa-2x me-3" style="color: #363636;"></i>
+              <h4 class="fw-bold mb-0" style="color: #242f40;">Test Flix</h4>
+            </div>
+            <p class="text-secondary-emphasis mb-2">World leading software testing conference</p>
+            <p style="color: #242f40;">Attended and participated in workshops on modern testing strategies, CI/CD integration, and AI in QA. Networked with industry experts.</p>
+            <span class="badge">Conference</span>
+            <span class="badge">Networking</span>
+          </div>
+        </div>
+        
+        <!-- Test Mulargest Conference (fixed the name from "Test Mu") -->
+        <div class="col-md-6">
+          <div class="conference-card">
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-users fa-2x me-3" style="color: #363636;"></i>
+              <h4 class="fw-bold mb-0" style="color: #242f40;">Test Mulargest</h4>
+            </div>
+            <p class="text-secondary-emphasis mb-2">Largest software testing conference</p>
+            <p style="color: #242f40;">Engaged in sessions about test automation frameworks, performance testing, and emerging tools. Collaborated with testers from global companies.</p>
+            <span class="badge">Conference</span>
+            <span class="badge">Workshop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS - Separated as requested -->
+  <section id="certifications" class="section bg-soft">
+    <div class="container">
+      <h2 class="text-center display-6 fw-bold mb-5" style="color: #242f40;"><i class="fas fa-certificate me-3" style="color: #cca43b;"></i>Certifications</h2>
+      <div class="row g-4">
+        <!-- Udemy: Advanced Unit Testing -->
+        <div class="col-md-4">
+          <div class="cert-card shadow-sm">
+            <i class="fas fa-file-certificate fa-2x mb-2" style="color:#363636;"></i>
+            <h6 class="fw-bold" style="color: #242f40;">Advanced Unit Testing: JUnit, Mockito, PowerMock</h6>
+            <p style="color: #363636; margin-bottom: 6px;">Udemy · Mar '25</p>
+            <div class="cert-detail-tags">
+              <span>TDD</span><span>BDD</span><span>ATDD</span><span>Mockito</span><span>PowerMock</span><span>JUnit5</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Greens Technology Automation Tester Course -->
+        <div class="col-md-4">
+          <div class="cert-card shadow-sm">
+            <i class="fas fa-file-certificate fa-2x mb-2" style="color:#363636;"></i>
+            <h6 class="fw-bold" style="color: #242f40;">Automation Tester Certification</h6>
+            <p style="color: #363636; margin-bottom: 6px;">Greens technology · Nov '22</p>
+            <div class="cert-detail-tags">
+              <span>Selenium</span><span>TestNG</span><span>Maven</span><span>Frameworks</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- LinkedIn Learning - Project Management (replaced Python Diploma) -->
+        <div class="col-md-4">
+          <div class="cert-card shadow-sm">
+            <i class="fab fa-linkedin fa-2x mb-2" style="color:#363636;"></i>
+            <h6 class="fw-bold" style="color: #242f40;">Project Management</h6>
+            <p style="color: #363636; margin-bottom: 6px;">LinkedIn Learning · Jan '24</p>
+            <div class="cert-detail-tags">
+              <span>Agile</span><span>Scrum</span><span>Risk</span><span>Methodologies</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDUCATION (unchanged) -->
+      <h2 class="text-center display-6 fw-bold mt-5 mb-4" style="color: #242f40;"><i class="fas fa-university me-3" style="color: #cca43b;"></i>Education</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+          <div class="bg-white p-4 rounded-4 shadow-sm" style="border-left: 4px solid #cca43b;">
+            <h5 class="fw-bold" style="color: #242f40;">MCA in Computer Application</h5>
+            <p class="mb-1" style="color: #242f40;">Paavai engineering college · GPA 8.01</p>
+            <p style="color: #363636;">Sep '23 – Jun '25 · Namakkal</p>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="bg-white p-4 rounded-4 shadow-sm" style="border-left: 4px solid #cca43b;">
+            <h5 class="fw-bold" style="color: #242f40;">B.Sc in Computer Science</h5>
+            <p class="mb-1" style="color: #242f40;">Mahendra arts and science · GPA 6.68</p>
+            <p style="color: #363636;">Jun '19 – Jun '22 · Namakkal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="text-center display-6 fw-bold mb-5" style="color: #242f40;"><i class="fas fa-envelope-open-text me-3" style="color: #cca43b;"></i>Get in touch</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <!-- personal contact info -->
+          <div class="text-center mb-5">
+            <p><i class="fas fa-phone-alt contact-icon"></i> 84899 20988</p>
+            <p><i class="fas fa-envelope contact-icon"></i> aadthiyaa@gmail.com</p>
+            <p><i class="fas fa-map-marker-alt contact-icon"></i> Chennai, Tamil Nadu</p>
+            <div class="social-links mt-4">
+              <a href="#" class="me-4"><i class="fab fa-linkedin fa-2x"></i></a>
+              <a href="#" class="me-4"><i class="fab fa-github fa-2x"></i></a>
+              <a href="#" class="me-4"><i class="fas fa-search fa-2x" title="Portfolio"></i></a>
+            </div>
+          </div>
+
+          <form id="contactForm" class="bg-white p-5 rounded-5 shadow-sm">
+            <div class="mb-4">
+              <label for="name" class="form-label fw-semibold" style="color: #242f40;">Full name</label>
+              <input type="text" class="form-control" id="name" placeholder="e.g. Priya K" required>
+            </div>
+            <div class="mb-4">
+              <label for="email" class="form-label fw-semibold" style="color: #242f40;">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+            </div>
+            <div class="mb-4">
+              <label for="message" class="form-label fw-semibold" style="color: #242f40;">Message</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="Tell me about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-3"><i class="fas fa-paper-plane me-2"></i>Send message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <p class="mb-0 small">© 2025 Aadhavan .R — Automation Tester</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and custom script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function() {
+      // smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href === "#") return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.pushState(null, null, href);
+          }
+        });
+      });
+
+      // contact form demo
+      const form = document.getElementById('contactForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert('✨ Thanks for reaching out! I’ll get back to you soon — this is a demo portfolio.');
+          form.reset();
+        });
+      }
+
+      // active nav link
+      function setActiveLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        let currentSection = '';
+        const scrollY = window.pageYOffset;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          const sectionHeight = section.offsetHeight;
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          const href = link.getAttribute('href').substring(1);
+          if (href === currentSection) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', setActiveLink);
+      window.addEventListener('load', setActiveLink);
+    })();
+  </script>
+</body>
+</html>
