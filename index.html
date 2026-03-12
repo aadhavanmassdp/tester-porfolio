@@ -38,6 +38,9 @@
     .hero img {
       border: 4px solid #cca43b; /* golden border */
       box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+      object-fit: cover;
+      width: 150px;
+      height: 150px;
     }
     .skill-tag {
       background-color: #ffffff;
@@ -251,6 +254,23 @@
       border-bottom: 2px solid #cca43b;
       padding-bottom: 0.5rem;
     }
+    /* Formspree form styling */
+    .form-status {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+    .form-status.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .form-status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
   </style>
 </head>
 <body>
@@ -280,12 +300,11 @@
     </div>
   </nav>
 
-  <!-- HERO - new palette: jet/dark navy, golden details -->
+  <!-- HERO - with new profile image from PostImage -->
   <section id="home" class="hero">
     <div class="container text-center">
-      <!-- avatar with initials A.R using new colours -->
-      <img src="https://ui-avatars.com/api/?background=242f40&color=cca43b&size=150&name=Aadhavan+R&length=2&font-size=0.5&bold=true" 
-           alt="Aadhavan R profile" class="rounded-circle mb-4" width="150" height="150">
+      <!-- Profile image from PostImage -->
+      <img src="https://i.postimg.cc/G3qPprp0/aadhimage.jpg" alt="Aadhavan R profile" class="rounded-circle mb-4" width="150" height="150">
       <h1 class="display-4 fw-bold">Aadhavan .R</h1>
       <p class="lead fs-3">Automation Tester</p>
       <div class="mt-3">
@@ -294,7 +313,7 @@
       <p class="mt-4 fs-5 opacity-90">Finding defects before they find your users.</p>
       <div class="mt-5">
         <a href="#contact" class="btn btn-lg px-5 py-3 me-2 rounded-pill" style="background-color: #cca43b; color: #242f40; border: none;"><i class="fas fa-paper-plane me-2"></i>Hire me</a>
-        <a href="#" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill"><i class="fas fa-download me-2"></i>Resume</a>
+        <!-- Resume button completely removed as requested -->
       </div>
     </div>
   </section>
@@ -439,7 +458,6 @@
                   <i class="fab fa-github me-1"></i> View on GitHub
                 </a>
               </div>
-        
             </div>
           </div>
         </div>
@@ -591,7 +609,7 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT with Formspree API -->
   <section id="contact" class="section">
     <div class="container">
       <h2 class="text-center display-6 fw-bold mb-5" style="color: #242f40;"><i class="fas fa-envelope-open-text me-3" style="color: #cca43b;"></i>Get in touch</h2>
@@ -609,19 +627,22 @@
             </div>
           </div>
 
-          <form id="contactForm" class="bg-white p-5 rounded-5 shadow-sm">
+          <!-- Formspree Form - Updated with the provided API -->
+          <form id="contactForm" action="https://formspree.io/f/mnjgvjzy" method="POST" class="bg-white p-5 rounded-5 shadow-sm">
             <div class="mb-4">
               <label for="name" class="form-label fw-semibold" style="color: #242f40;">Full name</label>
-              <input type="text" class="form-control" id="name" placeholder="e.g. Priya K" required>
+              <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Priya K" required>
             </div>
             <div class="mb-4">
               <label for="email" class="form-label fw-semibold" style="color: #242f40;">Email address</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+              <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
             </div>
             <div class="mb-4">
               <label for="message" class="form-label fw-semibold" style="color: #242f40;">Message</label>
-              <textarea class="form-control" id="message" rows="4" placeholder="Tell me about your project..."></textarea>
+              <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell me about your project..." required></textarea>
             </div>
+            <!-- Form Status Messages -->
+            <div id="form-status" class="form-status"></div>
             <button type="submit" class="btn btn-primary w-100 py-3"><i class="fas fa-paper-plane me-2"></i>Send message</button>
           </form>
         </div>
@@ -643,54 +664,4 @@
       // smooth scroll
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (href === "#") return;
-          const target = document.querySelector(href);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            history.pushState(null, null, href);
-          }
-        });
-      });
-
-      // contact form demo
-      const form = document.getElementById('contactForm');
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          alert('✨ Thanks for reaching out! I’ll get back to you soon — this is a demo portfolio.');
-          form.reset();
-        });
-      }
-
-      // active nav link
-      function setActiveLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-        let currentSection = '';
-        const scrollY = window.pageYOffset;
-
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop - 100;
-          const sectionHeight = section.offsetHeight;
-          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-            currentSection = section.getAttribute('id');
-          }
-        });
-
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          const href = link.getAttribute('href').substring(1);
-          if (href === currentSection) {
-            link.classList.add('active');
-          }
-        });
-      }
-
-      window.addEventListener('scroll', setActiveLink);
-      window.addEventListener('load', setActiveLink);
-    })();
-  </script>
-</body>
-</html>
+          const href = this.getAttribute
