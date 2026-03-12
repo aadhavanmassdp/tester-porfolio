@@ -664,4 +664,59 @@
       // smooth scroll
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute
+          const href = this.getAttribute('href');
+          if (href === "#") return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.pushState(null, null, href);
+          }
+        });
+      });
+
+      // contact form demo - now using Formspree, so we don't prevent default
+      // but we can show a custom message after submission
+      const form = document.getElementById('contactForm');
+      const formStatus = document.getElementById('form-status');
+      
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          // Don't prevent default - Formspree handles it
+          // Show submitting message
+          formStatus.style.display = 'block';
+          formStatus.className = 'form-status';
+          formStatus.textContent = 'Sending message...';
+        });
+      }
+
+      // active nav link
+      function setActiveLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        let currentSection = '';
+        const scrollY = window.pageYOffset;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          const sectionHeight = section.offsetHeight;
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          const href = link.getAttribute('href').substring(1);
+          if (href === currentSection) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', setActiveLink);
+      window.addEventListener('load', setActiveLink);
+    })();
+  </script>
+</body>
+</html>
